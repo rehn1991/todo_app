@@ -33,6 +33,12 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pop();
   }
 
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
+    });
+  }
+
   void createTasks() {
     showDialog(
         context: context,
@@ -61,9 +67,11 @@ class _HomePageState extends State<HomePage> {
           itemCount: toDoList.length,
           itemBuilder: (context, index) {
             return ToDoListTile(
-                taskName: toDoList[index][0],
-                isChecked: toDoList[index][1],
-                onChanged: (value) => checkboxChanged(value, index));
+              taskName: toDoList[index][0],
+              isChecked: toDoList[index][1],
+              onChanged: (value) => checkboxChanged(value, index),
+              deleteFunction: (context) => deleteTask(index),
+            );
           }),
     );
   }
